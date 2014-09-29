@@ -8,7 +8,6 @@ namespace _1DV402.S2.L1A
 {
     class SecretNumber
     {
-        
         private int _count;
         private int _number;
         public const int MaxNumberOfGuesses = 7;
