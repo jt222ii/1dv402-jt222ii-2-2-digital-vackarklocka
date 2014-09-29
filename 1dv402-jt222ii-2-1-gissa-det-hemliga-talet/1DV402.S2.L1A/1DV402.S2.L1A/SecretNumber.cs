@@ -24,16 +24,12 @@ namespace _1DV402.S2.L1A
         }
         public bool MakeGuess(int number)
         {
-
             if (_count >= MaxNumberOfGuesses)
             {
                 Console.WriteLine("Du har slut på gissningar - du är sämst");
                 throw new ApplicationException();
             }
-
             _count++;
-
-
             if (number < 1 || number > 100)
             {
                 throw new ArgumentOutOfRangeException();               
@@ -57,8 +53,7 @@ namespace _1DV402.S2.L1A
             }
             else
                 System.Console.WriteLine("Det hemliga talet är {0}.", _number);
-                return false;
-   
+                return false;   
         }
     }
 }
