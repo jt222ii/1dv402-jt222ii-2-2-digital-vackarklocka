@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace _1DV402.S2.L1A
 {
-    class SecretNumber
+    public class SecretNumber
     {
         private int _count;  // antal gissningar gjordas
         private int _number; // hemliga numret förvaras här
-        public const int MaxNumberOfGuesses = 7;
+        public const int MaxNumberOfGuesses = 7; // Skapar och sätter ett värde på MaxNumberOfGuesses
         public SecretNumber() // startar initialize
         {
             Initialize();
