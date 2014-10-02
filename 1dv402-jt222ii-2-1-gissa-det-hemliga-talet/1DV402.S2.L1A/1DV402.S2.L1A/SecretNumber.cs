@@ -45,12 +45,10 @@ namespace _1DV402.S2.L1A
             if (number > _number) // om numret man skrev in är större än det hemliga talet säger konsollen att det var för högt och även hur många försök kvar man har
             {
                 Console.WriteLine("{0} är för högt. Var god försök igen. Du har {1} gissningar kvar", number, (MaxNumberOfGuesses - _count));
-                return false;
             }
             if (number < _number) // samma som ovan fast för nummer mindre än det hemliga numret
             {
                 Console.WriteLine("{0} är för lågt. Var god försök igen. Du har {1} gissningar kvar", number, (MaxNumberOfGuesses - _count));
-                return false;
             }
             return false;
         }
