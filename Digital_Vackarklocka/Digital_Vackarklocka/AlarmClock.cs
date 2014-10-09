@@ -28,7 +28,7 @@ namespace Digital_Vackarklocka
         }
         public int AlarmMinute  // Alarmets minuter. Se ovan för förklaring av get set
         {
-            get { return _alarmMinute; } 
+            get { return _alarmMinute; }
             set
             {
                 if (value < 0 || value > 59)
@@ -42,10 +42,10 @@ namespace Digital_Vackarklocka
             set
             {
                 if (value < 0 || value > 23)
-                { 
-                    throw new ArgumentException("klockans timmar är inte inom det rätta intervallet 0-23"); 
+                {
+                    throw new ArgumentException("klockans timmar är inte inom det rätta intervallet 0-23");
                 }
-                _hour = value; 
+                _hour = value;
             }
         }
         public int Minute   // Klockans minuter. Se ovan för förklaring av get set
@@ -59,15 +59,17 @@ namespace Digital_Vackarklocka
             }
         }
 
-        
+
         //konstruktorerna ser till att objekten blir korrekt initierade
-        public AlarmClock(): this(0,0) //anropar konstruktorn med 2 parameterfält 
+        public AlarmClock()
+            : this(0, 0) //anropar konstruktorn med 2 parameterfält 
         {
             // "Ingen tilldelning får ske i konstruktorns kropp, som måste vara tom."
             //"Denna konstruktor måste därför anropa den konstruktor i klassen som har två parametrar." - uppgiften
         }
-        public AlarmClock(int hour, int minute):this (hour,minute,0,0)//anropar konstruktorn med 4 parameterfält                                                                       
-        {                                                           
+        public AlarmClock(int hour, int minute)
+            : this(hour, minute, 0, 0)//anropar konstruktorn med 4 parameterfält                                                                       
+        {
             //Ingen tilldelning får ske i konstruktorns kropp, som måste vara tom. Denna konstruktor måste därför anropa den 
             //konstruktor i klassen som har fyra parametrar.
         }
@@ -78,43 +80,46 @@ namespace Digital_Vackarklocka
             AlarmHour = alarmHour;
             AlarmMinute = alarmMinute;
         }
-        public bool TickTock() //varje gång ticktock anropas ökas minuten med 1. Om antal minuter överstiger 59 sätts minuter till 0 och our får +1. Hour testas då om det är mer än 23. 
-                               // stämmer det sätts timtalet till 0. Sedan testas det om timmen och minuten stämmer med alarmets timme och minut. 
+        public bool TickTock() //Bool som returnerar true eller false. Kollar om antal minuter är mindre än 59 minuter. Stämmer det så ökar den antal minuter med ett.
+        // annars sätter den minuter till 0 och kollar om timmen är mindre än 23. Stämmer det så ökar timmens värde med ett. Annars sätts det till 0.
         {
-            _minute++;
-            if (_minute>59)
-            { _hour++; _minute = 0; }
-            if(_hour>23)
-            { Hour = 0; }
-            if (_hour == _alarmHour && _minute == _alarmMinute)
-            { return true; }
-            else
-                return false;
-        }
-        public string ToString()  //skriver ut klockslaget och inställd alarmtid
-        {
-            StringBuilder time = new StringBuilder();       //stringbuilder kan lägga till text och istället för att man skickar tillbaka ett nytt objekt kan man returnera samma objekt med modifierade värden
-            time.AppendFormat("{0,4}:", _hour);
-            if(_minute<10)
-            { 
-                time.AppendFormat("0{0}", _minute); 
-            }
-            else
-            { 
-                time.AppendFormat("{0}", _minute);
-            }
-            time.AppendFormat("<{0}:", _alarmHour);
-            if(_alarmMinute<10)
-            { 
-                time.AppendFormat("0{0}>", _alarmMinute);
-            }
+            if (Minute < 59)
+            { Minute++; }
             else
             {
-                time.AppendFormat("{0}>", _alarmMinute);
+                Minute = 0;
+                if (Hour < 23)
+                { Hour++; }
+                else
+                { Hour = 0; }
             }
-                                                             //AppendFormat fungerar som så att använda string format fast för append istället. 
-                                                            //Ex) "time.AppendFormat("0{0}", _minute);  " hade skrivits "time.Append("0"); time.Append(_minute);" för att få samma resultat som utan Format
-            return time.ToString();                        //returnerar StringBuilder objektet som har fått sitt värde av time.AppendFormat
+            return (Hour == AlarmHour && Minute == AlarmMinute);
+
+        }
+        public override string ToString()  //skriver ut klockslaget och inställd alarmtid. Override för att det redan finns en "ToString()" i "Object" och jag säger då att jag inte vill använda mig av den utan den jag skapar här.
+        {
+            string time = string.Format("{0}:{1:00} <{2:00}:{3:00}>", _hour, _minute, _alarmHour, _alarmMinute); //string.format blev smidigare - betydligt mindre kod. 
+
+            //StringBuilder time = new StringBuilder();       //stringbuilder kan lägga till text och istället för att man skickar tillbaka ett nytt objekt kan man returnera samma objekt med modifierade värden
+            //time.AppendFormat("{0,4}:", _hour);
+            //if(_minute<10)
+            //{ 
+            //    time.AppendFormat("0{0}", _minute); 
+            //}
+            //else
+            //{ 
+            //    time.AppendFormat("{0}", _minute);
+            //}
+            //time.AppendFormat("<{0}:", _alarmHour);
+            //if(_alarmMinute<10)
+            //{ 
+            //    time.AppendFormat("0{0}>", _alarmMinute);       //AppendFormat fungerar som så att använda string format fast för append istället. 
+            //}                                                  //Ex) "time.AppendFormat("0{0}", _minute);  " hade skrivits "time.Append("0"); time.Append(_minute);" för att få samma resultat som utan Format
+            //else                                              //returnerar StringBuilder objektet som har fått sitt värde av time.AppendFormat
+            //{
+            //    time.AppendFormat("{0}>", _alarmMinute);
+            //}
+            return time.ToString();
         }
     }
 }
